@@ -1,0 +1,355 @@
+---
+title: "Trabajo unidad 1"
+author: "Alex Guaman - Evelyn Faican"
+format: pdf
+editor: visual
+---
+
+## Running Code
+
+# **Capitulo 2**
+
+## **Estructuras de datos R**
+
+Las estructuras de datos de R que se utilizan con mayor frecuencia en el aprendizaje automático son vectores, factores, listas, matrices y marcos de datos. Cada uno de estos tipos de datos está especializado para una tarea de administración de datos específica, por lo que es importante comprender cómo interactuarán en su proyecto de R.
+
+## **Vectores**
+
+La estructura de datos fundamental de R es la vector, que almacena un conjunto ordenado de valores llamado elementos. Un vector puede contener cualquier número de elementos.
+
+Construyamos un conjunto de vectores que contengan datos sobre tres pacientes médicos.\
+Crearemos un vector de caracteres llamadonombre del tema,que contiene los tres nombres de pacientes, un vector numérico llamadotemperaturaque contiene la temperatura corporal de cada paciente y un vector lógicoestado_gripeque contiene el diagnóstico de cada paciente; VERDADEROsi él o ella tiene influenza,FALSOde lo contrario. Como se muestra en el siguiente listado, los tres vectores son:
+
+```{r}
+nombre_sujeto <- c("John Doe", "Jane Doe", "Steve Graves")
+temperatura <- c(98.1, 98.6, 101.4)
+estado_gripe <- c(FALSO, FALSO, VERDADERO)
+```
+
+Debido a que los vectores R están inherentemente ordenados, se puede acceder a los registros contando el número del elemento en el conjunto, comenzando en1,y rodear este número con corchetes (por ejemplo, \[ y \]) después del nombre del vector. Por ejemplo, para obtener la temperatura corporal de la paciente Jane Doe, o el elemento 2 en el vector de temperatura, simplemente escriba:
+
+```{r}
+ temperatura[2]
+```
+
+R ofrece una variedad de métodos convenientes para extraer datos de vectores. Se puede obtener un rango de valores utilizando el operador de dos puntos. Por ejemplo, para obtener la temperatura corporal de Jane Doe y Steve Graves, escriba:
+
+```{r}
+ temperatura[2:3]
+```
+
+Los artículos se pueden excluir especificando un número de artículo negativo. Para excluir los datos de temperatura de Jane Doe, escriba:
+
+```{r}
+ temperatura[-2]
+```
+
+Finalmente, a veces también es útil especificar un vector lógico que indique si se debe incluir cada elemento. Por ejemplo, para incluir las dos primeras lecturas de temperatura pero excluir la tercera, escriba:
+
+```{r}
+temperatura[1:2]
+```
+
+Como verá en breve, el vector proporciona la base para muchas otras estructuras de datos\
+R. Por lo tanto, conocer las diversas operaciones vectoriales es crucial para trabajar con\
+datos en R.
+
+## **Factores**
+
+R proporciona una estructura de datos conocida comofactor específicamente para este propósito. Un factor es un caso especial de vector que se utiliza únicamente para representar variables nominales. En el conjunto de datos médicos que estamos construyendo, podríamos usar un factor para representargénero,porque utiliza dos categorías:MASCULINO y FEMENINO.
+
+Para crear un factor a partir de unpersonajevector, simplemente aplique el factor()función. Por ejemplo:
+
+```{r}
+sexo <- factor(c("MASCULINO", "MUJER", "MASCULINO"))
+género
+```
+
+Observe que cuando se mostraban los datos de género, R imprimía información adicional que indicaba los niveles del factor de género. Los niveles comprenden el conjunto de posibles categorías que podrían tomar los datos, en este casoMASCULINOoFEMENINO.\
+Cuando se crean factores, podemos agregar niveles adicionales que pueden no aparecer en los datos. Supongamos que agregamos otro factor para el tipo de sangre como se muestra en el siguiente ejemplo:
+
+```{r}
+ sangre <- factor(c("O", "AB", "A"),
+niveles = c("A", "B", "AB", "O"))
+  sangre
+```
+
+Como resultado, aunque nuestros datos incluyen solo tiposO, AB,y A,los cuatro tipos se almacenan con el sangre factor indicado por la salida Niveles: AB AB O. El almacenamiento del nivel adicional permite la posibilidad de agregar datos con el otro tipo de sangre en el futuro. También asegura que si tuviéramos que crear una tabla de tipos de sangre, sabríamos ese tipo B existe, a pesar de no estar registrado en nuestros datos.
+
+## **Liza**
+
+Se usa para almacenar un conjunto ordenado de valores. Sin embargo, a diferencia de un vector que requiere que todos los elementos sean del mismo tipo, una lista permite recopilar diferentes tipos de valores. Debido a esta flexibilidad, las listas a menudo se usan para almacenar varios tipos de datos de entrada y salida y conjuntos de parámetros de configuración para modelos de aprendizaje automático.
+
+```{r}
+sujeto_nombre[1]
+```
+
+```{r}
+temperatura[1]
+```
+
+```{r}
+estado_gripe[1]
+```
+
+```{r}
+género[1]
+```
+
+```{r}
+sangre[1]
+```
+
+Esto parece mucho trabajo para mostrar los datos médicos de un paciente. La estructura de la lista nos permite agrupar todos los datos de un paciente en un objeto que podemos usar repetidamente.
+
+Para cada valor en la secuencia de elementos. Los nombres no son obligatorios, pero permiten acceder a los valores de la lista más adelante por nombre, en lugar de por la posición numerada como con los vectores:
+
+```{r}
+asunto1 <- lista(nombre completo = nombre_sujeto[1],
+temperatura = temperatura[1],
+flu_status = flu_status[1], género =
+género[1],
+sangre = sangre[1])
+```
+
+Imprimir los datos de un paciente ahora es cuestión de escribir un solo comando:
+
+```{r}
+ sujeto1
+```
+
+Tenga en cuenta que los valores están etiquetados con los nombres que especificamos en el\
+comando anterior. Aunque se puede acceder a una lista usando los mismos métodos que un\
+vector, los nombres brindan mayor claridad para acceder a los valores, en lugar de tener que recordar la posición del valor de temperatura, así:
+
+```{r}
+ sujeto1[2]
+```
+
+A menudo es más fácil acceder a la temperatura directamente, agregando un \$ y el nombre\
+del valor al nombre de la lista:
+
+```{r}
+sujeto1$temperatura
+```
+
+Acceder al valor por nombre también garantiza que si agrega o elimina valores de la lista, no recuperará accidentalmente el elemento de lista incorrecto cuando cambie el orden.\
+Es posible obtener varios elementos en una lista especificando un vector de nombres:
+
+```{r}
+ sujeto1[c("temperatura", "estado_gripe")]
+```
+
+## Marcos de datos
+
+Con mucho, la estructura de datos R más importante utilizada en el aprendizaje automático es lamarco de datos, una estructura análoga a una hoja de cálculo o base de datos ya que tiene filas y columnas de datos. En términos de R, un marco de datos puede entenderse como una lista de vectores o factores, cada uno de los cuales tiene exactamente el mismo número de valores. Debido a que el marco de datos es literalmente una lista de vectores, combina aspectos de vectores y listas. Vamos a crear un marco de datos para nuestro conjunto de datos de pacientes. Usando los vectores de datos de pacientes que creamos previamente, el marco de datos()la función los combina en un marco de datos:
+
+```{r}
+pt_data <- data.frame(subject_name, temperatura, flu_status, gender, blood,
+stringsAsFactors = FALSE)
+```
+
+Cuando mostramos lapt_datosmarco de datos, vemos que la estructura es bastante diferente de las estructuras de datos con las que trabajamos anteriormente:
+
+```{r}
+pt_datos
+```
+
+Para extraer columnas enteras (vectores) de datos, podemos aprovechar el hecho de que un marco de datos es simplemente una lista de vectores. De manera similar a las listas, la forma más directa de extraer un solo elemento, en este caso un vector o columna de datos, es referirse a él por su nombre. Por ejemplo, para obtener lanombre del tema vectorial, tipo:
+
+```{r}
+ pt_datos$nombre_sujeto
+```
+
+También similar a las listas, se puede usar un vector de nombres para extraer varias columnas de un marco de datos:
+
+```{r}
+ pt_data[c("temperatura", "flu_status")]
+```
+
+Para extraer valores en el marco de datos, podemos usar métodos como los que aprendimos\
+para acceder a valores en vectores, con una excepción importante; debido a que el marco de datos es bidimensional, deberá especificar la posición de las filas y las columnas que desea extraer.
+
+Por ejemplo, para extraer el valor de la primera fila y la segunda columna del marco de\
+datos del paciente (el valor de temperatura para John Doe), ingresaría:
+
+```{r}
+pt_datos[1, 2]
+```
+
+Si desea más de una fila o columna de datos, puede hacerlo especificando\
+vectores para los números de fila y columna que desea. La siguiente declaración\
+extraerá datos de las filas 1 y 3, y de las columnas 2 y 4:
+
+```{r}
+pt_data[c(1, 3), c(2, 4)]
+```
+
+Para extraer todas las filas o columnas, en lugar de enumerarlas todas, simplemente deje en blanco la parte de la fila o la columna. Por ejemplo, para extraer todas las filas de la primera columna:
+
+```{r}
+datos_pt[, 1]
+```
+
+Para extraer todas las columnas de la primera fila:
+
+```{r}
+pt_datos[1, ]
+```
+
+Y para extraer todo:
+
+```{r}
+datos_pt[ , ]
+```
+
+Los métodos que hemos aprendido para acceder a valores en listas y vectores también se pueden usar para recuperar filas y columnas de marcos de datos. Por ejemplo, se puede acceder a las columnas por nombre en lugar de por posición, y se pueden usar signos negativos para excluir filas o columnas de datos. Por lo tanto, la declaración:
+
+```{r}
+ pt_data[c(1, 3), c("temperatura", "género")]
+```
+
+Es equivalente a:
+
+```{r}
+pt_datos[-2, c(-1, -3, -5)]
+```
+
+Para familiarizarse con el trabajo con marcos de datos, intente practicar estas operaciones con los datos del paciente o, mejor aún, utilice su propio conjunto de datos. Estos tipos de operaciones son cruciales para gran parte del trabajo que haremos en capítulos posteriores.
+
+## Matrices y arreglos
+
+Para crear una matriz, simplemente suministre un vector de datos almatriz()función, junto con un parámetro que especifica el número de filas (fila)o número de columnas (ncol). Por ejemplo, para crear una matriz de 2x2 que almacene las primeras cuatro letras del alfabeto, podemos usar el nrow parámetro para solicitar que los datos se dividan en dos filas:
+
+```{r}
+m <- matriz(c('a', 'b', 'c', 'd'), nfila = 2)
+```
+
+Esto es equivalente a la matriz producida usandon col = 2:
+
+```{r}
+m <- matriz(c('a', 'b', 'c', 'd'), ncol = 2)
+```
+
+Se llama orden de columna principal. Para ilustrar esto aún más, veamos qué\
+sucede si agregamos algunos valores más a la matriz. Con seis valores, solicitar dos filas crea una matriz con tres columnas:
+
+```{r}
+ m <- matriz(c('a', 'b', 'c', 'd', 'e', 'f'), nfila = 2)
+```
+
+De manera similar, solicitar dos columnas crea una matriz con tres filas:
+
+```{r}
+ m <- matriz(c('a', 'b', 'c', 'd', 'e', 'f'), ncol = 2)
+```
+
+Al igual que con los marcos de datos, los valores en las matrices se pueden extraer usando \[fila columna\] notación.
+
+```{r}
+m[1, ]
+```
+
+```{r}
+m[, 1]
+```
+
+## Gestión de datos con R
+
+Uno de los desafíos que se enfrentan cuando se trabaja con conjuntos de datos masivos consiste en recopilar, preparar y administrar datos de una variedad de fuentes. Esta tarea se ve facilitada por las herramientas de R para cargar datos de muchos formatos comunes.
+
+## Guardar y cargar estructuras de datos R
+
+Cuando haya pasado mucho tiempo obteniendo un marco de datos en particular en el formato que desea, no debería necesitar volver a crear su trabajo cada vez que reinicia su sesión de R. Para guardar una estructura de datos en particular en un archivo que pueda volver a cargarse más tarde o transferirse a otro sistema, puede usar elahorrar()función.
+
+Si tuviéramos tres objetos llamadosx, y,yz,podríamos guardarlos en un archivo mis datos. RData usando el siguiente comando:
+
+```{r}
+ guardar(x, y, z, archivo = "misdatos.RData")
+```
+
+El carga()El comando recreará las estructuras de datos ya guardadas que estaban en un archivo . RDataarchivo. para cargar elmisdatos.RDataarchivo que guardamos en el código anterior, simplemente escriba:
+
+```{r}
+ cargar("misdatos.RData")
+```
+
+## Importar y guardar datos de archivos CSV
+
+A tabular(como en "tabla") el archivo de datos está estructurado en forma de matriz, de tal manera que cada línea de texto refleja un ejemplo, y cada ejemplo tiene el mismo número de características. Los valores de características en cada línea están separados por un símbolo predefinido conocido como delimitador. A menudo, la primera línea de un archivo de datos tabulares enumera los nombres de las columnas de datos. Esto se llama un en cabezamiento línea.
+
+```{r}
+ pt_data <- read.csv("pt_data.csv", stringsAsFactors = FALSO)
+```
+
+De manera predeterminada, R asume que el archivo CSV incluye una línea de encabezado que enumera los nombres de las características en el conjunto de datos. Si un archivo CSV no tiene encabezado, especifique la opción encabezado = FALSOcomo se muestra en el siguiente comando, y R asignará nombres de características predeterminados en la formaV1, V2,etcétera:
+
+```{r}
+ misdatos <- read.csv("misdatos.csv", stringsAsFactors = FALSE, header =
+FALSE)
+```
+
+Para guardar un marco de datos en un archivo CSV, use el método write.CSV ()función. Si su marco de datos se llamapt_datos,simplemente ingrese:
+
+```{r}
+ escribir.csv(pt_datos, archivo = "pt_datos.csv")
+```
+
+## Importación de datos de bases de datos SQL
+
+Si sus datos se almacenan en unODBC(Conectividad de base de datos abierta)sql(lenguaje de consulta estructurado) base de datos como Oracle, MySQL, PostgreSQL, Microsoft SQL o SQLite, la RODBCpaquete creado por Brian Ripleyse puede utilizar para importar estos datos directamente en un marco de datos R.
+
+Si aún no lo ha hecho, deberá instalar y cargar elRODBCpaquete:
+
+```{r}
+ instalar.paquetes("RODBC")
+```
+
+```{r}
+ biblioteca (RODBC)
+```
+
+A continuación, abriremos una conexión llamadamidba la base de datos con el DSNmi_dsn:
+
+```{r}
+ mydb <- odbcConnect("my_dsn")
+```
+
+Alternativamente, si su conexión ODBC requiere un nombre de usuario y una\
+contraseña, deben especificarse al llamar alodbcConnect()función:
+
+```{r}
+ mydb <- odbcConnect("my_dsn", uid = "my_username" pwd =
+"my_password")
+```
+
+ElsqlQuery()La función utiliza consultas SQL típicas, como se muestra en el siguiente\
+comando:
+
+```{r}
+ consulta_paciente <- "seleccionar * de datos_paciente donde vivo = 1"
+```
+
+```{r}
+ datos_paciente <- sqlQuery(canal = mydb, consulta = consulta_paciente,
+stringsAsFactors = FALSO)
+```
+
+La resultantedatos_pacientevariable será un marco de datos que contiene todas las filas seleccionadas mediante la consulta SQL almacenada enpaciente_consulta.\
+Cuando haya terminado de usar la base de datos, la conexión se puede cerrar como se muestra en el siguiente comando:
+
+```{r}
+odbcClose(mydb)
+```
+
+## Exploración y comprensión de datos.
+
+Después de recopilar datos y cargarlos en estructuras de datos R, el siguiente paso en el proceso de aprendizaje automático consiste en examinar los datos en detalle. Es durante este paso que comenzará a explorar las características y los ejemplos de los datos, y se dará cuenta de las peculiaridades que hacen que sus datos sean únicos. Cuanto mejor comprenda sus datos, mejor podrá hacer coincidir un modelo de aprendizaje automático con su problema de aprendizaje.
+
+Dado que el conjunto de datos se almacena en formato CSV, podemos usar elleer.csv()función para cargar los datos en un marco de datos R:
+
+```{r}
+autosusados <- read.csv("autosusados.csv", stringsAsFactors = FALSE)
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
