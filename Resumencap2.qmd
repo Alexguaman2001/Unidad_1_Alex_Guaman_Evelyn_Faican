@@ -498,7 +498,7 @@ El formato de archivo de texto tabular más común es el archivo de valores sepa
 Para cargar este archivo CSV en R, se usa read.csv() de la siguiente manera:
 
 ```{r}
-pt_data<-read.csv("usedcars.csv",stringsAsFactors = FALSE)
+pt_data<-read.csv( "usedcars.csv", stringsAsFactors = FALSE)
 ```
 
 Necesitamos usar el parámetro stringsAsFactors = FALSE para evitar que R convierta todas las variables de texto en factores.
@@ -720,7 +720,7 @@ El histograma se compone de una serie de barras con alturas que indican la frecu
 
 Los histogramas de datos sesgados se ven estirados en uno de los lados:
 
-![](images/Screenshot%20from%202023-04-20%2023-40-01.png){fig-align="center" width="403"}
+![](n1.png)
 
 La capacidad de diagnosticar rápidamente dichos patrones en nuestros datos es uno de los puntos fuertes del histograma como herramienta de exploración de datos.
 
@@ -738,11 +738,11 @@ Las distribuciones nos permiten caracterizar una gran cantidad de valores utiliz
 
 Para calcular la desviación estándar, primero obtenemos la varianza, (promedio de las diferencias al cuadrado entre cada valor y el valor medio). En notación matemática, la varianza se define mediante la siguiente fórmula:
 
-![](images/Screenshot%20from%202023-04-20%2023-45-06.png){fig-align="center" width="134"}
+![](vari.png)
 
 La desviación estándar:
 
-![](images/Screenshot%20from%202023-04-20%2023-45-45.png){fig-align="center" width="132"}
+![](desestan.png)
 
 Para obtener la varianza y la desviación estándar en R se pueden utilizar las funciones var() y sd()
 
@@ -837,4 +837,4 @@ Hay una gran cantidad de datos en la salida de CrossTable(). La leyenda en la pa
 
 Los valores de Chi-cuadrado se refieren a la contribución de la celda en la prueba de Chi-cuadrado de Pearson para la independencia entre dos variables. Esta prueba mide la probabilidad de que la diferencia en los recuentos de celdas en la tabla se deba únicamente al azar. Si la probabilidad es muy baja, proporciona una fuerte evidencia de que las dos variables están asociadas.
 
-## Puede obtener los resultados de la prueba de chi-cuadrado agregando un parámetro adicional que especifique chisq = TRUE al llamar a la función CrossTable()
+Puede obtener los resultados de la prueba de chi-cuadrado agregando un parámetro adicional que especifique chisq = TRUE al llamar a la función CrossTable()
